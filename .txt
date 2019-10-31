@@ -1,0 +1,5 @@
+ Date time = new Date();
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String d ="12/05/2000 12:00";
+        String dtime = dt1.format(time);
+        System.out.println(dtime);
