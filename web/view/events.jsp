@@ -10,8 +10,8 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -22,10 +22,10 @@
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href='/events'>Мероприятия</a>+
+                <a class="nav-link" href="/">Главная</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">О сайте</a>
+                <a class="nav-link" href='/events'>Мероприятия</a>+
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Мой профиль</a>
@@ -51,7 +51,13 @@
                 if (names != null && !names.isEmpty()) {
                     out.println("<ul class=\"list-group\">");
                     for (String s : names) {
-                        out.println("<li class=\"list-group-item\">" + s + "</li>");
+                        out.println("<li class=\"list-group-item\">" + s +
+                                "<div style=\"float: right\" class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">" +
+                                "<button type=\"button\" class=\"btn btn-info\">Редактировать</button>" +
+                                "<button type=\"button\" class=\"btn btn-info\">Нравится</button>" +
+                                "<button type=\"button\" class=\"btn btn-info\" onclick=\"location.href='/event'\">i</button>" +
+                                "</div>" +
+                                "</li>");
                     }
                     out.println("</ul>");
 
@@ -61,7 +67,7 @@
             %>
         </div>
     </div>
-    <div class="overlay"></div>
+    <div></div>
 </header>
 <footer class="page-footer">
     <div class="container">
@@ -79,8 +85,8 @@
         <div class="footer-copyright text-center">© 2019 Copyright: MyWebsite.com</div>
     </div>
 </footer>
-<script src="jquery/jquery-3.4.1.js"></script>
-<script src="bootstrap/js/bootstrap.min.js"></script>
-<script src="js/main.js"></script>
+<script src="../jquery/jquery-3.4.1.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/main.js"></script>
 </body>
 </html>

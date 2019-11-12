@@ -9,7 +9,7 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link rel="stylesheet" type="text/css" href="../css/register.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -26,33 +26,33 @@
                         <form role="form" method="post" id="loginForm">
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                <input type="email" class="form-control" placeholder="Электронная почта" required autofocus />
+                                <input type="email" name="email" class="form-control" placeholder="Электронная почта" required autofocus />
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" class="form-control" placeholder="Пароль" required />
+                                <input type="password" name="password" class="form-control" placeholder="Пароль" required />
                             </div>
                             <p>
-                                <a href="#">Забыли свой пароль?</a></p>
-                            У вас нет аккаунта? <a href="#">Регистрация</a>
+                               <!-- <a href="#">Забыли свой пароль?</a></p> -->
+                            У вас нет аккаунта? <a onclick="location.href='/register'">Регистрация</a>
                         </form>
                     </div>
 
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-xl-6 col-sm-6 col-md-6">
+                        <!-- <div class="col-xl-6 col-sm-6 col-md-6">
                             <div class="checkbox">
                                 <label>
-                                    <input type="checkbox" value="Remember">
+                                    <input type="checkbox" name="checkbox" value="Remember">
                                     Запомнить меня
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-xl-6 col-sm-6 col-md-6">
                             <button type="submit" form="loginForm" class="btn btn-labeled btn-success">
                                 <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Войти</button>
-                            <button type="button" onclick="location.href='/histadventure_website/'" class="btn btn-labeled btn-danger">
+                            <button type="button" onclick="location.href='..'" class="btn btn-labeled btn-danger">
                                 <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Выход</button>
                         </div>
                     </div>

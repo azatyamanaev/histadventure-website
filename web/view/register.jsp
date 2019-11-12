@@ -9,7 +9,7 @@
 <html>
 <head>
     <title></title>
-    <link rel="stylesheet" type="text/css" href="css/register.css">
+    <link rel="stylesheet" type="text/css" href="../css/register.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -66,7 +66,7 @@
                             </button>
                         </div>
                         <div class="col-xl-3 col-sm-3 col-md-3">
-                            <button type="button" onclick="location.href='/histadventure_website/'"
+                            <button type="button" onclick="location.href='..'"
                                     class="btn btn-labeled btn-danger">
                                 <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Выход
                             </button>

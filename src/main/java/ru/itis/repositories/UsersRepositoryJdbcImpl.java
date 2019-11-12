@@ -14,12 +14,12 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     //language=SQL
     private final String SQL_INSERT_USER = "insert into users " +
-            "(first_name, last_name, email, login, password, role, subscribed_events) " +
+            "(first_name, last_name, email, login, password, role) " +
             "values (?, ?, ?, ?, ?, ?, ?);";
 
     //language=SQL
     private final String SQL_UPDATE_USER = "update users \n" +
-            "set first_name = ?, last_name = ?, email = ?, login = ?, password = ?, role = ?, subscribed_events = ? \n" +
+            "set first_name = ?, last_name = ?, email = ?, login = ?, password = ?, role = ? \n" +
             "where id = ?;";
 
     public UsersRepositoryJdbcImpl(Connection connection) {
@@ -27,15 +27,15 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     }
 
     private RowMapper<User> userRowMapper = row -> {
-        Long id = row.getLong("id");
+        Long userId = row.getLong(3);
+        Long eventId = row.getLong(10);
         String firstName = row.getString("first_name");
         String lastName = row.getString("last_name");
         String email = row.getString("email");
         String login = row.getString("login");
         String password = row.getString("password");
         String role = row.getString("role");
-        List<Event> events = (List<Event>) row.getArray("subscribed_events");
-        return new User(id, firstName, lastName, email, login, password, Role.valueOf(role), events);
+        return new User(userId, firstName, lastName, email, login, password, Role.valueOf(role));
     };
 
     @Override
@@ -65,7 +65,6 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             statement.setString(4, model.getLogin());
             statement.setString(5, model.getPassword());
             statement.setString(6, String.valueOf(model.getRole()));
-            statement.setArray(7, (Array) model.getSubscribedEvents());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException();
@@ -91,7 +90,6 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             statement.setString(4, model.getLogin());
             statement.setString(5, model.getPassword());
             statement.setString(6, String.valueOf(model.getRole()));
-            statement.setArray(7, (Array) model.getSubscribedEvents());
             statement.setLong(8, model.getId());
             statement.executeUpdate();
         } catch (SQLException e) {

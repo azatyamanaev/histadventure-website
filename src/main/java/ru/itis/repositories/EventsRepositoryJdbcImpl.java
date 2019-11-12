@@ -29,14 +29,16 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
         Long id = row.getLong("id");
         String name = row.getString("name");
         String description = row.getString("description");
-        List<User> participants = (List<User>) row.getArray("participants");
+        //List<User> participants = (List<User>) row.getArray("participants");
+        List<User> participants = null;
         Integer capacity = row.getInt("capacity");
         String host = row.getString("host");
         Boolean active = row.getBoolean("active");
         String place = row.getString("place");
         String timeStart = row.getString("time_start");
         String timeEnd = row.getString("time_end");
-        List<User> subscribedUsers = (List<User>) row.getArray("subscribed_users");
+        //List<User> subscribedUsers = (List<User>) row.getArray("subscribed_users");
+        List<User> subscribedUsers = null;
         return new Event(id, name, description, participants, capacity, host, active, place, timeStart, timeEnd, subscribedUsers);
     };
 

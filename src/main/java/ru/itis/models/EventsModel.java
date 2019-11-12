@@ -13,18 +13,19 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class EventsModel {
-    private static EventsModel instance = new EventsModel();
+    private static EventsModel instance;
 
     private List<Event> model;
 
     public static EventsModel getInstance() {
+        instance = new EventsModel();
         return instance;
     }
 
     private EventsModel() {
         Properties properties = new Properties();
         try {
-            properties.load(new FileReader("db.properties"));
+            properties.load(new FileReader("/home/monitor/Рабочий стол/Project(dev1)/histadventure-website/src/main/db.properties"));
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
