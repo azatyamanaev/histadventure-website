@@ -27,8 +27,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     }
 
     private RowMapper<User> userRowMapper = row -> {
-        Long userId = row.getLong(3);
-        Long eventId = row.getLong(10);
+        Long userId = row.getLong("id");
         String firstName = row.getString("first_name");
         String lastName = row.getString("last_name");
         String email = row.getString("email");
@@ -36,6 +35,19 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
         String password = row.getString("password");
         String role = row.getString("role");
         return new User(userId, firstName, lastName, email, login, password, Role.valueOf(role));
+    };
+
+    private RowMapper<Event> eventRowMapper = row -> {
+        Long id = row.getLong("id");
+        String name = row.getString("name");
+        String description = row.getString("description");
+        Integer capacity = row.getInt("capacity");
+        String host = row.getString("host");
+        Boolean active = row.getBoolean("active");
+        String place = row.getString("place");
+        String timeStart = row.getString("time_start");
+        String timeEnd = row.getString("time_end");
+        return new Event(id, name, description, capacity, host, active, place, timeStart, timeEnd);
     };
 
     @Override
@@ -46,6 +58,10 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             ResultSet resultSet = statement.executeQuery("select * from users where email = \'" + email + "\';");
             if (resultSet.next()) {
                 user = userRowMapper.mapRow(resultSet);
+            }
+            if (user != null) {
+                user.setCreatedEvents(findCreatedEvents(user.getId()));
+                user.setSubscribedEvents(findSubscribedEvents(user.getId()));
             }
             statement.close();
         } catch (SQLException e) {
@@ -119,6 +135,10 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             if (resultSet.next()) {
                 user = userRowMapper.mapRow(resultSet);
             }
+            if (user != null) {
+                user.setCreatedEvents(findCreatedEvents(user.getId()));
+                user.setSubscribedEvents(findSubscribedEvents(user.getId()));
+            }
             statement.close();
         } catch (SQLException e) {
             throw new IllegalStateException(e);
@@ -135,7 +155,43 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
             while (resultSet.next()) {
                 User user = userRowMapper.mapRow(resultSet);
+                if (user != null) {
+                    user.setCreatedEvents(findCreatedEvents(user.getId()));
+                    user.setSubscribedEvents(findSubscribedEvents(user.getId()));
+                }
                 result.add(user);
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        return result;
+    }
+
+    private List<Event> findCreatedEvents(Long id) {
+        List<Event> result = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from created_events join events e on created_events.eventid = e.id where userid = " + id);
+
+            while (resultSet.next()) {
+                Event event = eventRowMapper.mapRow(resultSet);
+                result.add(event);
+            }
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        return result;
+    }
+
+    private List<Event> findSubscribedEvents(Long id) {
+        List<Event> result = new ArrayList<>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from subscribed_events join events e on subscribed_events.eventid = e.id where userid = " + id);
+
+            while (resultSet.next()) {
+                Event event = eventRowMapper.mapRow(resultSet);
+                result.add(event);
             }
         } catch (SQLException e) {
             throw new IllegalStateException(e);
