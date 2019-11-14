@@ -25,16 +25,16 @@
                 <a class="nav-link" href="/">Главная</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href='/events'>Мероприятия</a>+
+                <a class="nav-link" onclick="location.href='/events'">Мероприятия</a>+
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Мой профиль</a>
+                <a class="nav-link" onclick="location.href='/profile'">Мой профиль</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.jsp">Регистрация</a>
+                <a class="nav-link"  onclick="location.href='/register'">Регистрация</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="login.jsp">Вход</a>
+                <a class="nav-link" onclick="location.href='/login'">Вход</a>
             </li>
         </ul>
     </div>

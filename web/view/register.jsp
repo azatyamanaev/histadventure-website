@@ -40,8 +40,7 @@
                                 <span class="input-group-addon"><span
                                         class="glyphicon glyphicon-envelope"></span></span>
                                 <input type="email" name="email" class="form-control" placeholder="Электронная почта"
-                                       required
-                                       autofocus/>
+                                       required autofocus/>
                             </div>
                             <div class="input-group">
                                     <span class="input-group-addon"><span
@@ -52,7 +51,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
                                 <input type="password" name="password" class="form-control" placeholder="Пароль"
-                                       required/>
+                                       required autofocus/>
                             </div>
                         </form>
                     </div>

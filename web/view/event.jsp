@@ -15,9 +15,16 @@
     <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
         <div class="col-sm-12">
             <div class="col-xs-12 col-sm-8">
-                <h2>Сергей Иванов</h2>
-                <p><strong>Обо мне: </strong> Веб-дизайнер. </p>
-                <p><strong>Хобби: </strong> Книги, природа, активный отдых, сайтостроение, дизайн, верстка </p>
+                <h2>Название мероприятия</h2>
+                <p><strong>Описание: </strong> ... </p>
+                <p><strong>Учатники: </strong> ... ... ... </p>
+                <p><strong>Максимальное число участвующих: </strong> ... </p>
+                <p><strong>Руководитель: </strong> ... </p>
+                <p><strong>Состояние: </strong> ... </p>
+                <p><strong>Место проведения: </strong> ... </p>
+                <p><strong>Начало: </strong> ... </p>
+                <p><strong>Конец: </strong> ... </p>
+                <p><strong>Участники, которым понравилось это мероприятие: </strong> ... ... ... </p>
             </div>
         </div>
     </div>
