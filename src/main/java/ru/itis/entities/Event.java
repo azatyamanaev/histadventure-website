@@ -44,6 +44,18 @@ public class Event {
         this.subscribedUsers = subscribedUsers;
     }
 
+    public Event(Long id, String name, String description, int capacity, String host, boolean active, String place, String timeStart, String timeEnd) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+        this.host = host;
+        this.active = active;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
     public Long getId() {
         return id;
     }

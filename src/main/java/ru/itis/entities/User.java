@@ -62,16 +62,16 @@ public class User {
         return id;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public String getLogin() {
@@ -98,16 +98,16 @@ public class User {
         this.id = id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setLogin(String login) {
@@ -122,11 +122,11 @@ public class User {
         this.role = role;
     }
 
-    public void setSubscribed_events(List<Event> subscribedEvents) {
+    public void setSubscribedEvents(List<Event> subscribedEvents) {
         this.subscribedEvents = subscribedEvents;
     }
 
-    public void setSubscribedEvents(List<Event> subscribedEvents) {
-        this.subscribedEvents = subscribedEvents;
+    public void setCreatedEvents(List<Event> createdEvents) {
+        this.createdEvents = createdEvents;
     }
 }
