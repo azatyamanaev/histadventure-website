@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,6 +39,12 @@ public class RegisterServlet extends HttpServlet {
         User user = new User(email, firstname, lastname, login, password, Role.VERIFIED);
         UsersRepositoryJdbcImpl usersRepositoryJdbc = new UsersRepositoryJdbcImpl(connection);
         usersRepositoryJdbc.save(user);
+        HttpSession session = req.getSession();
+        session.setAttribute("firstname", user.getFirstName());
+        session.setAttribute("lastname", user.getLastName());
+        session.setAttribute("createdEvents", user.getCreatedEvents());
+        session.setAttribute("subscribedEvents", user.getSubscribedEvents());
+        session.setAttribute("auth", true);
         resp.sendRedirect("/profile");
     }
 
