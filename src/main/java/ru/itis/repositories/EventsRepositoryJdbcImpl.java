@@ -13,12 +13,12 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
     private Connection connection;
     //language=SQL
     private final String SQL_INSERT_EVENT = "insert into events " +
-            "(name, description, participants, capacity, host, active, place, time_start, time_end, subscribed_users) " +
-            "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            "(name, description, capacity, host, active, place, time_start, time_end) " +
+            "values (?, ?, ?, ?, ?, ?, ?, ?);";
 
     //language=SQL
     private final String SQL_UPDATE_EVENT = "update events \n" +
-            "set name = ?, description = ?, participants = ?, capacity = ?, host = ?, active = ?, place = ?, time_start = ?, time_end = ?, subscribed_users = ? \n" +
+            "set name = ?, description = ?, capacity = ?, host = ?, active = ?, place = ?, time_start = ?, time_end = ? \n" +
             "where id = ?;";
 
     public EventsRepositoryJdbcImpl(Connection connection) {
@@ -55,14 +55,12 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
                 Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, model.getName());
             statement.setString(2, model.getDescription());
-            statement.setArray(3, (Array) model.getParticipants());
-            statement.setInt(4, model.getCapacity());
-            statement.setString(5, model.getHost());
-            statement.setBoolean(6, model.isActive());
-            statement.setString(7, model.getPlace());
-            statement.setString(8, model.getTimeStart());
-            statement.setString(9, model.getTimeEnd());
-            statement.setArray(10, (Array) model.getSubscribedUsers());
+            statement.setInt(3, model.getCapacity());
+            statement.setString(4, model.getHost());
+            statement.setBoolean(5, model.isActive());
+            statement.setString(6, model.getPlace());
+            statement.setString(7, model.getTimeStart());
+            statement.setString(8, model.getTimeEnd());
             int affectedRows = statement.executeUpdate();
             if (affectedRows == 0) {
                 throw new SQLException();
@@ -85,15 +83,13 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
                 Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, model.getName());
             statement.setString(2, model.getDescription());
-            statement.setArray(3, (Array) model.getParticipants());
-            statement.setInt(4, model.getCapacity());
-            statement.setString(5, model.getHost());
-            statement.setBoolean(6, model.isActive());
-            statement.setString(7, model.getPlace());
-            statement.setString(8, model.getTimeStart());
-            statement.setString(9, model.getTimeEnd());
-            statement.setArray(10, (Array) model.getSubscribedUsers());
-            statement.setLong(11, model.getId());
+            statement.setInt(3, model.getCapacity());
+            statement.setString(4, model.getHost());
+            statement.setBoolean(5, model.isActive());
+            statement.setString(6, model.getPlace());
+            statement.setString(7, model.getTimeStart());
+            statement.setString(8, model.getTimeEnd());
+            statement.setLong(9, model.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException(e);

@@ -26,8 +26,7 @@ public class EventsServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/events.jsp");
             requestDispatcher.forward(req, resp);
         } else {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/login.jsp");
-            requestDispatcher.forward(req, resp);
+            resp.sendRedirect("/login");
         }
     }
 }

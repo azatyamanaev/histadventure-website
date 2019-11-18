@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet(name="profile", urlPatterns = "/profile")
+@WebServlet(name = "profile", urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,8 +19,7 @@ public class ProfileServlet extends HttpServlet {
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/profile.jsp");
             requestDispatcher.forward(req, resp);
         } else {
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/view/login.jsp");
-            requestDispatcher.forward(req, resp);
+            resp.sendRedirect("/login");
         }
     }
 }

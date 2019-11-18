@@ -27,15 +27,27 @@ To change this template use File | Settings | File Templates.
             <li class="nav-item">
                 <a class="nav-link" onclick="location.href='/events'">Мероприятия</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="location.href='/profile'">Мой профиль</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="location.href='/register'">Регистрация</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" onclick="location.href='/login'">Вход</a>
-            </li>
+            <%
+                Boolean auth = (Boolean) request.getSession().getAttribute("auth");
+                if (auth == null) {
+                    out.println("<li class=\"nav-item\">\n" +
+                            "                <a class=\"nav-link\" onclick=\"location.href='/profile'\">Мой профиль</a>\n" +
+                            "            </li>" +
+                            "<li class=\"nav-item\">\n" +
+                            "                <a class=\"nav-link\" onclick=\"location.href='/register'\">Регистрация</a>\n" +
+                            "            </li>\n" +
+                            "<li class=\"nav-item\">\n" +
+                            "                <a class=\"nav-link\" onclick=\"location.href='/login'\">Вход</a>\n" +
+                            "            </li>");
+                } else if (auth) {
+                    String firstName = (String) request.getSession().getAttribute("firstname");
+                    String lastName = (String) request.getSession().getAttribute("lastname");
+                    out.println("<li class=\"nav-item\">\n" +
+                            "                <a class=\"nav-link\" onclick=\"location.href='/profile'\">" + firstName + " " + lastName + "</a>\n" +
+                            "            </li>");
+                }
+            %>
+
         </ul>
     </div>
 </nav>

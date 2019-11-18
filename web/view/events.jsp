@@ -12,6 +12,7 @@
     <title></title>
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" href="../fontawesome-free-5.11.2-web/css/all.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -31,7 +32,7 @@
                 <a class="nav-link" onclick="location.href='/profile'">Мой профиль</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  onclick="location.href='/register'">Регистрация</a>
+                <a class="nav-link" onclick="location.href='/register'">Регистрация</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" onclick="location.href='/login'">Вход</a>
@@ -53,21 +54,19 @@
                     for (String s : names) {
                         out.println("<li class=\"list-group-item\">" + s +
                                 "<div style=\"float: right\" class=\"btn-group\" role=\"group\" aria-label=\"Basic example\">" +
-                                "<button type=\"button\" class=\"btn btn-info\">Редактировать</button>" +
-                                "<button type=\"button\" class=\"btn btn-info\">Нравится</button>" +
-                                "<button type=\"button\" class=\"btn btn-info\" onclick=\"location.href='/event'\">i</button>" +
+                                "<button type=\"button\" class=\"btn btn-info\"><i class=\"fas fa-edit\"></i></button>" +
+                                "<button type=\"button\" class=\"btn btn-info\"><i class=\"fas fa-star\"></i></button>" +
+                                "<button type=\"button\" class=\"btn btn-info\" onclick=\"location.href='/event'\"><i class=\"fas fa-info\"></i></button>" +
                                 "</div>" +
                                 "</li>");
                     }
                     out.println("</ul>");
-
                 } else out.println("<div class=\"container card rounded\">\n" +
                         "   <h5 class=\"text-center\">Пока что нет ни одного мероприятия!</h5>\n" +
                         "</div>");
             %>
         </div>
     </div>
-    <div></div>
 </header>
 <footer class="page-footer">
     <div class="container">

@@ -1,5 +1,7 @@
 package ru.itis.servlets;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.entities.Role;
 import ru.itis.entities.User;
 import ru.itis.repositories.UsersRepositoryJdbcImpl;
@@ -22,6 +24,7 @@ import java.util.Properties;
 @WebServlet(name = "login", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
     private Connection connection;
+    private UsersRepositoryJdbcImpl usersRepositoryJdbc;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,7 +42,6 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String password = req.getParameter("password");
-        UsersRepositoryJdbcImpl usersRepositoryJdbc = new UsersRepositoryJdbcImpl(connection);
         Optional<User> u = usersRepositoryJdbc.findOneByEmail(email);
         User user;
         HttpSession session = req.getSession();
@@ -50,7 +52,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("createdEvents", user.getCreatedEvents());
             session.setAttribute("subscribedEvents", user.getSubscribedEvents());
             session.setAttribute("auth", true);
-            if (user.getPassword().equals(password)) {
+            PasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (encoder.matches(password, user.getPassword())) {
                 resp.sendRedirect("/profile");
             }
         } else {
@@ -75,5 +78,6 @@ public class LoginServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
+        usersRepositoryJdbc = new UsersRepositoryJdbcImpl(connection);
     }
 }

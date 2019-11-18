@@ -1,8 +1,11 @@
 package ru.itis.servlets;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.entities.Role;
 import ru.itis.entities.User;
 import ru.itis.models.EventsModel;
+import ru.itis.models.Validator;
 import ru.itis.repositories.UsersRepositoryJdbcImpl;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +25,7 @@ import java.util.Properties;
 @WebServlet(name = "register", urlPatterns = "/register")
 public class RegisterServlet extends HttpServlet {
     private Connection connection;
+    private UsersRepositoryJdbcImpl usersRepositoryJdbc;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -36,8 +40,9 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        User user = new User(email, firstname, lastname, login, password, Role.VERIFIED);
-        UsersRepositoryJdbcImpl usersRepositoryJdbc = new UsersRepositoryJdbcImpl(connection);
+        PasswordEncoder encoder = new BCryptPasswordEncoder();
+        String hash = encoder.encode(password);
+        User user = new User(firstname, lastname, email, login, hash, Role.VERIFIED);
         usersRepositoryJdbc.save(user);
         HttpSession session = req.getSession();
         session.setAttribute("firstname", user.getFirstName());
@@ -46,6 +51,10 @@ public class RegisterServlet extends HttpServlet {
         session.setAttribute("subscribedEvents", user.getSubscribedEvents());
         session.setAttribute("auth", true);
         resp.sendRedirect("/profile");
+        //if (Validator.validate(firstname, Validator.nameRegex) && Validator.validate(lastname, Validator.nameRegex) && Validator.validate(email, Validator.emailRegex) && Validator.validate(login, Validator.loginRegex) && Validator.validate(password, Validator.passwordRegex)) {
+        //} else {
+        //    doGet(req, resp);
+        //}
     }
 
     @Override
@@ -65,5 +74,6 @@ public class RegisterServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
+        usersRepositoryJdbc = new UsersRepositoryJdbcImpl(connection);
     }
 }

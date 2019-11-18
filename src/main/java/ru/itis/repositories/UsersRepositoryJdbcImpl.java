@@ -15,7 +15,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     //language=SQL
     private final String SQL_INSERT_USER = "insert into users " +
             "(first_name, last_name, email, login, password, role) " +
-            "values (?, ?, ?, ?, ?, ?, ?);";
+            "values (?, ?, ?, ?, ?, ?);";
 
     //language=SQL
     private final String SQL_UPDATE_USER = "update users \n" +
