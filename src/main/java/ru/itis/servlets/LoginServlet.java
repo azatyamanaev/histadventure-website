@@ -1,8 +1,5 @@
 package ru.itis.servlets;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itis.entities.Role;
 import ru.itis.entities.User;
 import ru.itis.repositories.UsersRepositoryJdbcImpl;
 
@@ -52,8 +49,8 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("createdEvents", user.getCreatedEvents());
             session.setAttribute("subscribedEvents", user.getSubscribedEvents());
             session.setAttribute("auth", true);
-            PasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (encoder.matches(password, user.getPassword())) {
+            //PasswordEncoder encoder = new BCryptPasswordEncoder();
+            if (user.getPassword().equals(password)) {
                 resp.sendRedirect("/profile");
             }
         } else {

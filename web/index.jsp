@@ -31,9 +31,6 @@ To change this template use File | Settings | File Templates.
                 Boolean auth = (Boolean) request.getSession().getAttribute("auth");
                 if (auth == null) {
                     out.println("<li class=\"nav-item\">\n" +
-                            "                <a class=\"nav-link\" onclick=\"location.href='/profile'\">Мой профиль</a>\n" +
-                            "            </li>" +
-                            "<li class=\"nav-item\">\n" +
                             "                <a class=\"nav-link\" onclick=\"location.href='/register'\">Регистрация</a>\n" +
                             "            </li>\n" +
                             "<li class=\"nav-item\">\n" +

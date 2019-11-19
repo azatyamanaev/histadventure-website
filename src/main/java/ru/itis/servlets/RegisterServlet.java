@@ -1,7 +1,5 @@
 package ru.itis.servlets;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.entities.Role;
 import ru.itis.entities.User;
 import ru.itis.models.EventsModel;
@@ -40,9 +38,9 @@ public class RegisterServlet extends HttpServlet {
         String email = req.getParameter("email");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        PasswordEncoder encoder = new BCryptPasswordEncoder();
-        String hash = encoder.encode(password);
-        User user = new User(firstname, lastname, email, login, hash, Role.VERIFIED);
+        //PasswordEncoder encoder = new BCryptPasswordEncoder();
+        //String hash = encoder.encode(password);
+        User user = new User(firstname, lastname, email, login, password, Role.VERIFIED);
         usersRepositoryJdbc.save(user);
         HttpSession session = req.getSession();
         session.setAttribute("firstname", user.getFirstName());
