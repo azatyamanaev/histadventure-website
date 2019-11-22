@@ -13,12 +13,12 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
     private Connection connection;
     //language=SQL
     private final String SQL_INSERT_EVENT = "insert into events " +
-            "(name, description, capacity, host, active, place, time_start, time_end) " +
-            "values (?, ?, ?, ?, ?, ?, ?, ?);";
+            "(name, description, capacity, host, active, place, time_start, time_end, count_like) " +
+            "values (?, ?, ?, ?, ?, ?, ?, ?, '0');";
 
     //language=SQL
     private final String SQL_UPDATE_EVENT = "update events \n" +
-            "set name = ?, description = ?, capacity = ?, host = ?, active = ?, place = ?, time_start = ?, time_end = ? \n" +
+            "set name = ?, description = ?, capacity = ?, host = ?, active = ?, place = ?, time_start = ?, time_end = ?, count_like = ? \n" +
             "where id = ?;";
 
     public EventsRepositoryJdbcImpl(Connection connection) {
@@ -89,7 +89,8 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
             statement.setString(6, model.getPlace());
             statement.setString(7, model.getTimeStart());
             statement.setString(8, model.getTimeEnd());
-            statement.setLong(9, model.getId());
+            statement.setInt(9, model.getCountLike());
+            statement.setLong(10, model.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new IllegalStateException(e);
@@ -120,7 +121,6 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
             }
             if (event != null) {
                 event.setParticipants(findParticipants(event.getId()));
-                event.setSubscribedUsers(findSubscribedUsers(event.getId()));
             }
             statement.close();
         } catch (SQLException e) {
@@ -140,7 +140,6 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
                 Event event = eventRowMapper.mapRow(resultSet);
                 if (event != null) {
                     event.setParticipants(findParticipants(event.getId()));
-                    event.setSubscribedUsers(findSubscribedUsers(event.getId()));
                 }
                 result.add(event);
             }
@@ -155,22 +154,6 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("select * from participants join users u on participants.userid = u.id where eventid = " + id);
-
-            while (resultSet.next()) {
-                User user = userRowMapper.mapRow(resultSet);
-                result.add(user);
-            }
-        } catch (SQLException e) {
-            throw new IllegalStateException(e);
-        }
-        return result;
-    }
-
-    public List<User> findSubscribedUsers(Long id) {
-        List<User> result = new ArrayList<>();
-        try {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from subscribed_events join users u on subscribed_events.userid = u.id where eventid = " + id);
 
             while (resultSet.next()) {
                 User user = userRowMapper.mapRow(resultSet);

@@ -5,6 +5,7 @@ Date: 28.10.2019
 Time: 8:47
 To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -22,34 +23,29 @@ To change this template use File | Settings | File Templates.
     <div class="collapse navbar-collapse" id="main-navigation">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="/">Главная</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" onclick="location.href='/events'">Мероприятия</a>
             </li>
-            <%
-                Boolean auth = (Boolean) request.getSession().getAttribute("auth");
-                if (auth == null) {
-                    out.println("<li class=\"nav-item\">\n" +
-                            "                <a class=\"nav-link\" onclick=\"location.href='/register'\">Регистрация</a>\n" +
-                            "            </li>\n" +
-                            "<li class=\"nav-item\">\n" +
-                            "                <a class=\"nav-link\" onclick=\"location.href='/login'\">Вход</a>\n" +
-                            "            </li>");
-                } else if (auth) {
-                    String firstName = (String) request.getSession().getAttribute("firstname");
-                    String lastName = (String) request.getSession().getAttribute("lastname");
-                    out.println("<li class=\"nav-item\">\n" +
-                            "                <a class=\"nav-link\" onclick=\"location.href='/profile'\">" + firstName + " " + lastName + "</a>\n" +
-                            "            </li>");
-                }
-            %>
-
+            <c:if test="${auth == null}">
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/register'">Регистрация</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/login'">Вход</a>
+                </li>
+            </c:if>
+            <c:if test="${auth == true}">
+                <li class="nav-item">
+                    <a class="nav-link" onclick="location.href='/profile'">
+                        <c:out value="${user.firstName}"/>
+                        <c:out value="${' '}"/>
+                        <c:out value="${user.lastName}"/>
+                    </a>
+                </li>
+            </c:if>
         </ul>
     </div>
 </nav>
 <header class="page-header header container-fluid">
-    <div class="overlay"></div>
     <div class="description">
         <h1>Добро пожаловать на HISTADVENTURE!</h1>
         <p>На этом сайте вы сможете найти различные мероприятия на историческую тематику</p>
@@ -57,7 +53,7 @@ To change this template use File | Settings | File Templates.
 </header>
 <footer class="page-footer">
     <div class="container">
-        <div class="footer-copyright text-center">© 2019 Copyright: MyWebsite.com</div>
+        <div class="footer-copyright text-center">© 2019 Copyright: histadventure-website.com</div>
     </div>
 </footer>
 <script src="jquery/jquery-3.4.1.js"></script>

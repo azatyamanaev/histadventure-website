@@ -13,11 +13,11 @@ public class Event {
     private String place;
     private String timeStart;
     private String timeEnd;
-    private List<User> subscribedUsers;
+    private Integer countLike;
 
     public Event() {}
 
-    public Event(Long id, String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, List<User> subscribedUsers) {
+    public Event(Long id, String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, Integer countLike) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,10 +28,10 @@ public class Event {
         this.place = place;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.subscribedUsers = subscribedUsers;
+        this.countLike = countLike;
     }
 
-    public Event(String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, List<User> subscribedUsers) {
+    public Event(String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, Integer countLike) {
         this.name = name;
         this.description = description;
         this.participants = participants;
@@ -41,7 +41,7 @@ public class Event {
         this.place = place;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.subscribedUsers = subscribedUsers;
+        this.countLike = countLike;
     }
 
     public Event(Long id, String name, String description, int capacity, String host, boolean active, String place, String timeStart, String timeEnd) {
@@ -96,8 +96,8 @@ public class Event {
         return timeEnd;
     }
 
-    public List<User> getSubscribedUsers() {
-        return subscribedUsers;
+    public Integer getCountLike() {
+        return countLike;
     }
 
     public void setId(Long id) {
@@ -140,7 +140,7 @@ public class Event {
         this.timeEnd = timeEnd;
     }
 
-    public void setSubscribedUsers(List<User> subscribedUsers) {
-        this.subscribedUsers = subscribedUsers;
+    public void setCountLike(Integer countLike) {
+        this.countLike = countLike;
     }
 }
