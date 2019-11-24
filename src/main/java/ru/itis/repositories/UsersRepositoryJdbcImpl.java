@@ -68,7 +68,26 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
             throw new IllegalStateException(e);
         }
         return Optional.ofNullable(user);
+    }
 
+    @Override
+    public Optional<User> findOneByLogin(String login) {
+        User user = null;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from users where login = \'" + login + "\';");
+            if (resultSet.next()) {
+                user = userRowMapper.mapRow(resultSet);
+            }
+            if (user != null) {
+                user.setCreatedEvents(findCreatedEvents(user.getId()));
+                user.setSubscribedEvents(findSubscribedEvents(user.getId()));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        return Optional.ofNullable(user);
     }
 
     @Override
