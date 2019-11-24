@@ -52,24 +52,36 @@
     <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
         <div class="col-sm-12">
             <div class="col-xs-12 col-sm-8">
-                <h2>Название мероприятия:event</h2>
-                <p><strong>Описание: </strong>ev</p>
-                <p><strong>Учаcтники: </strong>azyam, spar</p>
-                <p><strong>Максимальное число участвующих: </strong>3</p>
-                <p><strong>Руководитель: </strong>spar</p>
-                <p><strong>Состояние: </strong>не активно</p>
-                <p><strong>Место проведения: </strong>this</p>
-                <p><strong>Начало: </strong>28/10/2019 12:00</p>
-                <p><strong>Конец: </strong>30/10/2019 12:00</p>
-                <p><strong>Количество лайков: </strong>1</p>
+                <h2>Название мероприятия:<c:out value="${event.name}"/></h2>
+                <p><strong>Описание: </strong><c:out value="${event.description}"/></p>
+                <p><strong>Учаcтники: </strong>
+                    <c:out value="${'|'}"/>
+                    <c:forEach var="participant" items="${event.participants}">
+                        <a onclick="location.href='/profile'">
+                            <c:out value="${participant.login}"/>
+                            <c:out value="${'|'}"/>
+                        </a>
+                    </c:forEach></p>
+                <p><strong>Максимальное число участвующих: </strong><c:out value="${event.capacity}"/></p>
+                <p><strong>Руководитель: </strong><c:out value="${event.host}"/></p>
+                <p><strong>Состояние: </strong><c:choose>
+                    <c:when test="${event.active == true}">
+                        <c:out value="${'активно'}"/>
+                    </c:when>
+                    <c:otherwise>
+                        <c:out value="${'не активно'}"/>
+                    </c:otherwise>
+                </c:choose></p>
+                <p><strong>Место проведения: </strong><c:out value="${event.place}"/></p>
+                <p><strong>Начало: </strong><c:out value="${event.timeStart}"/></p>
+                <p><strong>Конец: </strong><c:out value="${event.timeEnd}"/></p>
+                <p><strong>Количество лайков: </strong><c:out value="${event.countLike}"/></p>
                 <c:if test="${auth == true}">
-                    <button class="btn btn-info">Принять участие</button>
+                    <button class="btn btn-info" onclick="location.href='/participate'">Принять участие</button>
                 </c:if>
-                <c:if test="${user.role == 'ADMIN' || user.login == 'host'}">
+                <c:if test="${user.role == 'ADMIN' || user.login == event.host}">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#editModal"><i
                             class="fas fa-edit"></i></button>
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#endModal"><i
-                            class="fas fa-times"></i></button>
                 </c:if>
                 <div id="data"></div>
             </div>
@@ -86,62 +98,50 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form role="form" action="/event" method="post" id="editEventInfo">
                     <div class="form-group">
                         <label for="event-name" class="col-form-label">Название:</label>
-                        <input type="text" class="form-control" id="event-name">
+                        <input type="text" name="name" class="form-control" id="event-name">
                     </div>
                     <div class="form-group">
                         <label for="event-description" class="col-form-label">Описание:</label>
-                        <textarea class="form-control" id="event-description"></textarea>
+                        <textarea name="description" class="form-control" id="event-description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="event-capacity" class="col-form-label">Вместимость:</label>
-                        <input type="number" class="form-control" id="event-capacity">
+                        <input type="number" name="capacity" class="form-control" id="event-capacity">
                     </div>
                     <div class="form-group">
                         <label for="event-host" class="col-form-label">Организатор:</label>
-                        <input type="text" class="form-control" id="event-host">
+                        <input type="text" name="host" class="form-control" id="event-host">
+                    </div>
+                    <div class="form-group">
+                        <label for="event-active" class="col-form-label">Состояние:</label>
+                        <input type="checkbox" name="active" class="form-control" id="event-active">
                     </div>
                     <div class="form-group">
                         <label for="event-place" class="col-form-label">Место проведения:</label>
-                        <input type="text" class="form-control" id="event-place">
+                        <input type="text" name="place" class="form-control" id="event-place">
                     </div>
                     <div class="form-group">
                         <label for="event-time-start" class="col-form-label">Начало:</label>
-                        <input type="text" class="form-control" id="event-time-start">
+                        <input type="text" name="time-start" class="form-control" id="event-time-start">
                     </div>
                     <div class="form-group">
                         <label for="event-time-end" class="col-form-label">Конец:</label>
-                        <input type="text" class="form-control" id="event-time-end">
+                        <input type="text" name="time-end" class="form-control" id="event-time-end">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Сохранить изменения</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="endModal" tabindex="-1" role="dialog" aria-labelledby="endModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="endModalLabel">Завершение мероприятия</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button id="btn-ev" type="submit" form="editEventInfo" class="btn btn-primary">Сохранить изменения
                 </button>
-            </div>
-            <div class="modal-body">
-                Вы уверены, что хотите завершить это мероприятие?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Завершить</button>
             </div>
         </div>
     </div>
 </div>
 <script src="jquery/jquery-3.4.1.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/event-ajax.js"></script>
 </body>
 </html>

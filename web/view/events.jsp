@@ -63,7 +63,7 @@
                                 <div style="float: right" class="btn-group" role="group" aria-label="Basic example">
                                     <button type="button" class="btn btn-info"><i class="fas fa-star"></i></button>
                                     <button id="button<c:out value="${number}"/>" value="<c:out value="${event}"/>"
-                                            type="button" class="btn btn-info" onclick="location.href='/event'">
+                                            type="button" class="btn btn-info" onclick="submit(id)">
                                         <i class="fas fa-info"></i></button>
                                 </div>
                                 <div id="data"></div>
@@ -88,6 +88,6 @@
 <script src="../jquery/jquery-3.4.1.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js"></script>
 <script src="../js/main.js"></script>
-<script src=/js/events.js></script>
+<script src="../js/events.js"></script>
 </body>
 </html>

@@ -96,41 +96,41 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Редактирование мероприятия</h5>
+                <h5 class="modal-title" id="editModalLabel">Создание мероприятия</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form role="form" action="/profile" method="post" id="sendEventInfo">
                     <div class="form-group">
                         <label for="event-name" class="col-form-label">Название:</label>
-                        <input type="text" class="form-control" id="event-name">
+                        <input type="text" name="name" class="form-control" id="event-name">
                     </div>
                     <div class="form-group">
                         <label for="event-description" class="col-form-label">Описание:</label>
-                        <textarea class="form-control" id="event-description"></textarea>
+                        <textarea name="description" class="form-control" id="event-description"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="event-capacity" class="col-form-label">Вместимость:</label>
-                        <input type="number" class="form-control" id="event-capacity">
+                        <input type="number" name="capacity" class="form-control" id="event-capacity">
                     </div>
                     <div class="form-group">
                         <label for="event-place" class="col-form-label">Место проведения:</label>
-                        <input type="text" class="form-control" id="event-place">
+                        <input type="text" name="place" class="form-control" id="event-place">
                     </div>
                     <div class="form-group">
                         <label for="event-time-start" class="col-form-label">Начало:</label>
-                        <input type="text" class="form-control" id="event-time-start">
+                        <input type="text" name="time-start" class="form-control" id="event-time-start">
                     </div>
                     <div class="form-group">
                         <label for="event-time-end" class="col-form-label">Конец:</label>
-                        <input type="text" class="form-control" id="event-time-end">
+                        <input type="text" name="time-end" class="form-control" id="event-time-end">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Создать мероприятие</button>
+                <button type="submit" form="sendEventInfo" class="btn btn-primary">Создать мероприятие</button>
             </div>
         </div>
     </div>
