@@ -3,6 +3,7 @@ package ru.itis.repositories;
 import ru.itis.entities.Event;
 import ru.itis.entities.Role;
 import ru.itis.entities.User;
+import ru.itis.models.ConnectionCreator;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -20,6 +21,9 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
     private final String SQL_UPDATE_EVENT = "update events \n" +
             "set name = ?, description = ?, capacity = ?, host = ?, active = ?, place = ?, time_start = ?, time_end = ?, count_like = ? \n" +
             "where id = ?;";
+    //language=SQL
+    private final String SQL_INSERT_CREATED_EVENT = "insert into created_events" +
+            "(userid, eventid) values (?, ?)";
 
     public EventsRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
@@ -72,9 +76,25 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
                     throw new SQLException();
                 }
             }
+            PreparedStatement stat = connection.prepareStatement(SQL_INSERT_CREATED_EVENT, Statement.RETURN_GENERATED_KEYS);
+            stat.setLong(1, findUserIdByLogin(model.getHost()));
+            stat.setLong(2, model.getId());
+            affectedRows = stat.executeUpdate();
+            if (affectedRows == 0) {
+                throw new SQLException();
+            }
         } catch (SQLException e) {
             throw new IllegalStateException(e);
         }
+    }
+    private Long findUserIdByLogin(String login) {
+        UsersRepository usersRepository = new UsersRepositoryJdbcImpl(ConnectionCreator.getConnection());
+        Optional<User> u = usersRepository.findOneByLogin(login);
+        User user = null;
+        if (u.isPresent()) {
+            user = u.get();
+        }
+        return user.getId();
     }
 
     @Override
@@ -163,5 +183,25 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
             throw new IllegalStateException(e);
         }
         return result;
+    }
+
+    @Override
+    public Optional<Event> findOneByName(String name) {
+        Event event = null;
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from events where name = " + name + ";");
+
+            if (resultSet.next()) {
+                event = eventRowMapper.mapRow(resultSet);
+            }
+            if (event != null) {
+                event.setParticipants(findParticipants(event.getId()));
+            }
+            statement.close();
+        } catch (SQLException e) {
+            throw new IllegalStateException(e);
+        }
+        return Optional.ofNullable(event);
     }
 }
