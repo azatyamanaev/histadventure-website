@@ -15,13 +15,25 @@ public class Event {
     private String timeEnd;
     private Integer countLike;
 
-    public Event() {}
+    public Event() {
+    }
 
-    public Event(Long id, String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, Integer countLike) {
-        this.id = id;
+    public Event(String name, String description, List<User> participants, int capacity, String host, String place, String timeStart, String timeEnd, Integer countLike) {
         this.name = name;
         this.description = description;
         this.participants = participants;
+        this.capacity = capacity;
+        this.host = host;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.countLike = countLike;
+    }
+
+    public Event(Long id, String name, String description, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, Integer countLike) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.capacity = capacity;
         this.host = host;
         this.active = active;
@@ -31,17 +43,27 @@ public class Event {
         this.countLike = countLike;
     }
 
-    public Event(String name, String description, List<User> participants, int capacity, String host, boolean active, String place, String timeStart, String timeEnd, Integer countLike) {
+    public Event(Long id, String name, String description, int capacity, String host, String place, String timeStart, String timeEnd) {
+        this.id = id;
         this.name = name;
         this.description = description;
-        this.participants = participants;
         this.capacity = capacity;
         this.host = host;
-        this.active = active;
+        this.active = true;
         this.place = place;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.countLike = countLike;
+    }
+
+    public Event(String name, String description, int capacity, String host, String place, String timeStart, String timeEnd) {
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+        this.host = host;
+        this.active = true;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
     }
 
     public Event(Long id, String name, String description, int capacity, String host, boolean active, String place, String timeStart, String timeEnd) {
@@ -50,6 +72,38 @@ public class Event {
         this.description = description;
         this.capacity = capacity;
         this.host = host;
+        this.active = active;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
+    public Event(String name, String description, int capacity, String host, boolean active, String place, String timeStart, String timeEnd) {
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+        this.host = host;
+        this.active = active;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
+    public Event(String name, String description, int capacity, boolean active, String place, String timeStart, String timeEnd) {
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
+        this.active = active;
+        this.place = place;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+    }
+
+    public Event(Long id, String name, String description, int capacity, boolean active, String place, String timeStart, String timeEnd) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.capacity = capacity;
         this.active = active;
         this.place = place;
         this.timeStart = timeStart;
