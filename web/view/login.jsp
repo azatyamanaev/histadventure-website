@@ -25,16 +25,19 @@
                     <div class="col-xl-12 col-sm-12 col-md-12 login-box">
                         <form role="form" method="post" id="loginForm">
                             <div class="input-group">
-                                <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                                <input type="email" name="email" class="form-control" placeholder="Электронная почта" required autofocus />
+                                <span class="input-group-addon"><span
+                                        class="glyphicon glyphicon-envelope"></span></span>
+                                <input type="email" name="email" class="form-control" placeholder="Электронная почта"
+                                       required autofocus/>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                <input type="password" name="password" class="form-control" placeholder="Пароль" required />
+                                <input type="password" name="password" class="form-control" placeholder="Пароль"
+                                       required/>
                             </div>
                             <p>
-                               <!-- <a href="#">Забыли свой пароль?</a></p> -->
-                            У вас нет аккаунта? <a onclick="location.href='/register'">Регистрация</a>
+                                <!-- <a href="#">Забыли свой пароль?</a></p> -->
+                                У вас нет аккаунта? <a onclick="location.href='/register'">Регистрация</a>
                         </form>
                     </div>
 
@@ -49,11 +52,15 @@
                                 </label>
                             </div>
                         </div> -->
-                        <div class="col-xl-6 col-sm-6 col-md-6">
+                        <div class="col-xl-8 col-sm-8 col-md-8">
                             <button type="submit" form="loginForm" class="btn btn-labeled btn-success">
-                                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Войти</button>
+                                <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Войти
+                            </button>
+                        </div>
+                        <div class="col-xl-4 col-sm-4 col-md-4">
                             <button type="button" onclick="location.href='..'" class="btn btn-labeled btn-danger">
-                                <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Выход</button>
+                                <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>На главную
+                            </button>
                         </div>
                     </div>
                 </div>

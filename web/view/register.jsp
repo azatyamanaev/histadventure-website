@@ -59,15 +59,15 @@
                 </div>
                 <div class="panel-footer">
                     <div class="row">
-                        <div class="col-xl-9 col-sm-9 col-md-9">
+                        <div class="col-xl-8 col-sm-8 col-md-8">
                             <button type="submit" form="registerForm" class="btn btn-labeled btn-success">
                                 <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Зарегистрироваться
                             </button>
                         </div>
-                        <div class="col-xl-3 col-sm-3 col-md-3">
+                        <div class="col-xl-4 col-sm-4 col-md-4">
                             <button type="button" onclick="location.href='..'"
                                     class="btn btn-labeled btn-danger">
-                                <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>Выход
+                                <span class="btn-label"><i class="glyphicon glyphicon-remove"></i></span>На главную
                             </button>
                         </div>
                     </div>
