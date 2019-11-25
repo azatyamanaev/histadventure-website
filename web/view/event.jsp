@@ -55,13 +55,15 @@
                 <h2>Название мероприятия:<c:out value="${event.name}"/></h2>
                 <p><strong>Описание: </strong><c:out value="${event.description}"/></p>
                 <p><strong>Учаcтники: </strong>
-                    <c:out value="${'|'}"/>
                     <c:forEach var="participant" items="${event.participants}">
-                        <a onclick="location.href='/profile'">
-                            <c:out value="${participant.login}"/>
-                            <c:out value="${'|'}"/>
-                        </a>
-                    </c:forEach></p>
+                <form role="form" method="post" action="/other-profile" id="user-form">
+                    <c:out value="${participant.login}"/>
+                    <button type="submit" form="user-form" name="but-user" value="${participant.login}"
+                            class="btn btn-info"><i
+                            class="fas fa-user"></i>
+                    </button>
+                </form>
+                </c:forEach></p>
                 <p><strong>Максимальное число участвующих: </strong><c:out value="${event.capacity}"/></p>
                 <p><strong>Руководитель: </strong><c:out value="${event.host}"/></p>
                 <p><strong>Состояние: </strong><c:choose>
