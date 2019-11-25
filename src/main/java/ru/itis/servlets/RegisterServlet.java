@@ -3,6 +3,7 @@ package ru.itis.servlets;
 import ru.itis.entities.Role;
 import ru.itis.entities.User;
 import ru.itis.models.ConnectionCreator;
+import ru.itis.models.Validator;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.repositories.UsersRepositoryJdbcImpl;
 
@@ -26,24 +27,22 @@ public class RegisterServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String firstname = req.getParameter("firstname");
         String lastname = req.getParameter("lastname");
         String email = req.getParameter("email");
         String login = req.getParameter("login");
         String password = req.getParameter("password");
-        //PasswordEncoder encoder = new BCryptPasswordEncoder();
-        //String hash = encoder.encode(password);
-        User user = new User(firstname, lastname, email, login, password, Role.VERIFIED);
-        usersRepository.save(user);
-        HttpSession session = req.getSession();
-        session.setAttribute("user", user);
-        session.setAttribute("auth", true);
-        resp.sendRedirect("/profile");
-        //if (Validator.validate(firstname, Validator.nameRegex) && Validator.validate(lastname, Validator.nameRegex) && Validator.validate(email, Validator.emailRegex) && Validator.validate(login, Validator.loginRegex) && Validator.validate(password, Validator.passwordRegex)) {
-        //} else {
-        //    doGet(req, resp);
-        //}
+        if (Validator.validate(firstname, Validator.nameRegex) && Validator.validate(lastname, Validator.nameRegex) && Validator.validate(email, Validator.emailRegex) && Validator.validate(login, Validator.loginRegex) && Validator.validate(password, Validator.passwordRegex)) {
+            User user = new User(firstname, lastname, email, login, password, Role.VERIFIED);
+            usersRepository.save(user);
+            HttpSession session = req.getSession();
+            session.setAttribute("user", user);
+            session.setAttribute("auth", true);
+            resp.sendRedirect("/profile");
+        } else {
+            doGet(req, resp);
+        }
     }
 
     @Override
