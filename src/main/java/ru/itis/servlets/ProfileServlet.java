@@ -6,6 +6,8 @@ import ru.itis.entities.User;
 import ru.itis.models.ConnectionCreator;
 import ru.itis.repositories.EventsRepository;
 import ru.itis.repositories.EventsRepositoryJdbcImpl;
+import ru.itis.repositories.UsersRepository;
+import ru.itis.repositories.UsersRepositoryJdbcImpl;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,11 +19,13 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @WebServlet(name = "profile", urlPatterns = "/profile")
 public class ProfileServlet extends HttpServlet {
     private EventsRepository eventsRepository;
     private ParticipantsDAO participantsDAO;
+    private UsersRepository usersRepository;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,13 +41,13 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        HttpSession session = req.getSession();
         String name = req.getParameter("name");
         String description = req.getParameter("description");
         String capacity = req.getParameter("capacity");
         String place = req.getParameter("place");
         String timeStart = req.getParameter("time-start");
         String timeEnd = req.getParameter("time-end");
-        HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
         String host = user.getLogin();
         List<User> participants = new ArrayList<>();
@@ -59,5 +63,6 @@ public class ProfileServlet extends HttpServlet {
     public void init() {
         eventsRepository = new EventsRepositoryJdbcImpl(ConnectionCreator.getConnection());
         participantsDAO = new ParticipantsDAO(ConnectionCreator.getConnection());
+        usersRepository = new UsersRepositoryJdbcImpl(ConnectionCreator.getConnection());
     }
 }
