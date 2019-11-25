@@ -39,7 +39,8 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
         String place = row.getString("place");
         String timeStart = row.getString("time_start");
         String timeEnd = row.getString("time_end");
-        return new Event(id, name, description, capacity, host, active, place, timeStart, timeEnd);
+        Integer countLike = row.getInt("count_like");
+        return new Event(id, name, description, capacity, host, active, place, timeStart, timeEnd, countLike);
     };
 
     private RowMapper<User> userRowMapper = row -> {
@@ -134,7 +135,7 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
         Event event = null;
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from events where id = " + id + ";");
+            ResultSet resultSet = statement.executeQuery("select * from events where id = '" + id + "';");
 
             if (resultSet.next()) {
                 event = eventRowMapper.mapRow(resultSet);
@@ -190,7 +191,7 @@ public class EventsRepositoryJdbcImpl implements EventsRepository {
         Event event = null;
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("select * from events where name = " + name + ";");
+            ResultSet resultSet = statement.executeQuery("select * from events where name = '" + name + "';");
 
             if (resultSet.next()) {
                 event = eventRowMapper.mapRow(resultSet);
