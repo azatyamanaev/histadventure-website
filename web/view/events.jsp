@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../css/main.css">
     <link rel="stylesheet" href="../fontawesome-free-5.11.2-web/css/all.css">
+    <script src="../jquery/jquery-3.4.1.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script src="../js/events.js"></script>
+    <script src="../js/subscribe.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
@@ -52,21 +57,26 @@
             <div class="container btn-info">
                 <h2 class="text-center">Мероприятия</h2>
             </div>
-            <c:set var="number" value="0"></c:set>
             <c:choose>
                 <c:when test="${events != null}">
                     <ul class="list-group">
                         <c:forEach var="event" items="${events}">
-                            <c:set var="number" value="${number + 1}"/>
                             <li class="list-group-item">
                                 <c:out value="${event}"/>
                                 <div style="float: right" class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="button" class="btn btn-info"><i class="fas fa-star"></i></button>
-                                    <button id="button<c:out value="${number}"/>" value="<c:out value="${event}"/>"
-                                            type="button" class="btn btn-info" onclick="submit(id)">
-                                        <i class="fas fa-info"></i></button>
-                                </div>
-                                <div id="data"></div>
+                                    <c:if test="${auth == true}">
+                                    <form id="subscribe-form" role="form" action="/subscribe" method="post">
+                                        <button type="submit" form="subscribe-form" name="but-ev" value="${event}"
+                                                class="btn btn-info"
+                                                onclick="subscribe(id)"><i class="fas fa-star"></i></button>
+                                    </form>
+                                    </c:if>
+                                    <form role="form" method="post" action="/events" id="event-form">
+                                        <button type="submit" form="event-form" name="but-event" value="${event}"
+                                                class="btn btn-info"><i
+                                                class="fas fa-info"></i>
+                                        </button>
+                                    </form>
                             </li>
                         </c:forEach>
                     </ul>
@@ -85,9 +95,5 @@
         <div class="footer-copyright text-center">© 2019 Copyright: MyWebsite.com</div>
     </div>
 </footer>
-<script src="../jquery/jquery-3.4.1.js"></script>
-<script src="../bootstrap/js/bootstrap.min.js"></script>
-<script src="../js/main.js"></script>
-<script src="../js/events.js"></script>
 </body>
 </html>

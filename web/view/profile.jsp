@@ -58,7 +58,7 @@
                     <c:choose>
                         <c:when test="${user.createdEvents != null}">
                             <c:forEach var="event" items="${user.createdEvents}">
-                                <a class="dropdown-item" onclick="location.href='/event'">
+                                <a class="dropdown-item">
                                     <c:out value="${event.name}"/>
                                 </a>
                             </c:forEach>
@@ -77,7 +77,7 @@
                     <c:choose>
                         <c:when test="${user.subscribedEvents != null}">
                             <c:forEach var="subEvent" items="${user.subscribedEvents}">
-                                <a class="dropdown-item" onclick="location.href='/event'">
+                                <a class="dropdown-item">
                                     <c:out value="${subEvent.name}"/>
                                 </a>
                             </c:forEach>
