@@ -34,7 +34,8 @@ public class RegisterServlet extends HttpServlet {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         if (Validator.validate(firstname, Validator.nameRegex) && Validator.validate(lastname, Validator.nameRegex) && Validator.validate(email, Validator.emailRegex) && Validator.validate(login, Validator.loginRegex) && Validator.validate(password, Validator.passwordRegex)) {
-            User user = new User(firstname, lastname, email, login, password, Role.VERIFIED);
+            int hash = password.hashCode();
+            User user = new User(firstname, lastname, email, login, Integer.toString(hash), Role.VERIFIED);
             usersRepository.save(user);
             HttpSession session = req.getSession();
             session.setAttribute("user", user);

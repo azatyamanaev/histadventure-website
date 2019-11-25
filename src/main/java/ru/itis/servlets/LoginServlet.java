@@ -41,7 +41,8 @@ public class LoginServlet extends HttpServlet {
         if (u.isPresent()) {
             user = u.get();
             //PasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (user.getPassword().equals(password)) {
+            int hash = password.hashCode();
+            if (user.getPassword().equals(Integer.toString(hash))) {
                 session.setAttribute("user", user);
                 session.setAttribute("auth", true);
                 resp.sendRedirect("/profile");
