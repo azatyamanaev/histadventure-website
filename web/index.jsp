@@ -48,7 +48,7 @@ To change this template use File | Settings | File Templates.
 <header class="page-header header container-fluid">
     <div class="description">
         <h1>Добро пожаловать на HISTADVENTURE!</h1>
-        <p>На этом сайте вы сможете найти различные мероприятия на историческую тематику</p>
+        <p class="text-dark">На этом сайте вы сможете найти различные мероприятия на историческую тематику</p>
     </div>
 </header>
 <footer class="page-footer">
